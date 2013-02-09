@@ -8,6 +8,7 @@ TODO:
 	- Thin hook
 - Pass parameters to hook-function
 	- Length or number of loop-holes
+	- Hook type
 
 - Choose most essential variables 
 
@@ -42,12 +43,13 @@ module hook(){
 	claws();
 	meta_hook();
 	tip();
+	hook_normal();
 
-
-	module 
 
 	/*Normal style hook*/
 	module hook_normal(){
+		tip();
+		meta_hook();
 
 		module tip() {
 			translate([0,-hook_length- wall_thickness + tip_thickness/2, tip_height*1.5 - claw_length]) //TODO tip height to parameter
