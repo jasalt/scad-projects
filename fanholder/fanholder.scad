@@ -156,7 +156,7 @@ module hole(strength) {
 	}
 }
 
-mink_value = 1;
+mink_value = 2;
 /* Create "solid tube" with bottom layer  */
 module solid(strength){
 	translate([0, -(fan_width/2)-2, 0]) rotate([90,0,0])
