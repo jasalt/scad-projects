@@ -20,7 +20,7 @@ tube(); //Tube-part
 // platform(); //Clamp-part
 
 //Adjust tube thickness
-thickness = 0.52 * 3; // for 3 perimeters (juslem-prusa)
+thickness = 0.27 * 4; // for 4 perimeters (juslem-prusa)
 
 
 
