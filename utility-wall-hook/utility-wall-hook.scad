@@ -2,6 +2,14 @@
 Jarkko Saltiola
 2013
 
+TODO:
+- Different hook types
+	- Loop for screwdrivers 
+	- Thin hook
+- Pass parameters to hook-function
+	- Length or number of loop-holes
+
+- Choose most essential variables 
 
 */
 
@@ -35,17 +43,27 @@ module hook(){
 	meta_hook();
 	tip();
 
-	module tip() {
-		translate([0,-hook_length- wall_thickness + tip_thickness/2, tip_height*1.5 - claw_length]) //TODO tip height to parameter
-		cube(size=[hole_width - 1, tip_thickness, tip_height], center=true);
+
+	module 
+
+	/*Normal style hook*/
+	module hook_normal(){
+
+		module tip() {
+			translate([0,-hook_length- wall_thickness + tip_thickness/2, tip_height*1.5 - claw_length]) //TODO tip height to parameter
+			cube(size=[hole_width - 1, tip_thickness, tip_height], center=true);
+		}
+
+
+		module meta_hook(){
+			translate([0,-wall_thickness - hook_length/2,  - claw_length + hook_thickness])
+			cube(size=[hole_width - 1, hook_length, hook_thickness], center=true);
+		}
+		
 	}
 
 
-	module meta_hook(){
-		translate([0,-wall_thickness - hook_length/2,  - claw_length + hook_thickness])
-		cube(size=[hole_width - 1, hook_length, hook_thickness], center=true);
-	}
-
+	/*Common modules for all hook-types*/
 	module claws(){		
 		translate([0, wall_thickness, -claw_length/2 + main_height/2]){
 			difference(){
