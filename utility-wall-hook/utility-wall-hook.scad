@@ -6,22 +6,24 @@ Jarkko Saltiola
 */
 
 wall_thickness = 2;
-hole_width = 5;
-hole_height = 5; // for testing only
+hole_width = 9.4;
+hole_height = 9.55; // for testing only 9.55
 
-claw_length =10;
+claw_length = hole_height + 0.5; //10 hyvä
 claw_dist_extra = 0.1;
 
-hook_length = 20;
+hook_length = 35;
 
 hook_thickness = 3;
-tip_thickness = 2;
+tip_height = 4;
+tip_thickness = 3;
 
 
+// rotate([0,90]) //Uncomment this before exporting stl for printer..
+test_wall();
 
 color("Gainsboro")
 hook();
-test_wall();
 
 module hook(){
 	main_height = 2;
@@ -34,13 +36,13 @@ module hook(){
 	tip();
 
 	module tip() {
-		translate([0,-hook_length- wall_thickness + tip_thickness/2, -5])
-		cube(size=[hole_width - 1, tip_thickness, 4], center=true);
+		translate([0,-hook_length- wall_thickness + tip_thickness/2, tip_height*1.5 - claw_length]) //TODO tip height to parameter
+		cube(size=[hole_width - 1, tip_thickness, tip_height], center=true);
 	}
 
 
 	module meta_hook(){
-		translate([0,-wall_thickness - hook_length/2,-hook_thickness/2 - claw_length/2])
+		translate([0,-wall_thickness - hook_length/2,  - claw_length + hook_thickness])
 		cube(size=[hole_width - 1, hook_length, hook_thickness], center=true);
 	}
 
