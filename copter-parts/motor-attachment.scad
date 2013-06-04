@@ -7,14 +7,16 @@ Jarkko Saltiola
 //TODO
 //
 //Tarviiko tyhjentää long-tuben kiinnike
-//long-tuben ylä- ja alaosien eri halkaisija
+//long-tuben ylä- ja alaosien eri halkaisija   JOO
+
+// Pieni tappi pois, läpireikä vaan tilalle
 
 $fn = 300;
 
 main_z = 8;
 
-motor_radius = 13/2;
-wall_thickness = 1.3;
+motor_radius = 13/2;     // <--- Adjust motor size
+wall_thickness = 2;
 
 module motor_hole(){
     bigger_hole_radius = 3;
@@ -40,8 +42,12 @@ module motor_hole(){
 
 long_tube_z = 19.6;
 long_tube_r = 4;  // TODO check
-long_tube_thickness = 1;
 long_tube_x = 15;
+
+long_tube_hole_r = 2.5;    // Hole inner radius
+long_tube_cylinder_r = 3;  // Cylinder holes radius
+long_tube_cylinder_h = 4;  //                height
+
 
 module long_tube() {
     translate([long_tube_x,0,long_tube_z / 2])
@@ -58,8 +64,16 @@ module long_tube() {
 
 module long_tube_hole() {
     // body...
-    translate([long_tube_x,0,long_tube_z / 2])
-    cylinder(r=2.5, h=long_tube_z+1, center=true);
+    translate([long_tube_x,0,long_tube_z / 2]){
+        cylinder(r=long_tube_hole_r, h=long_tube_z+1, center=true);
+
+        //Upper cylinder hole
+        translate([0,0,long_tube_z - long_tube_cylinder_h])
+        cylinder(r=long_tube_cylinder_r, h=long_tube_z+1, center=true);
+        //Lower cylinder hole
+        translate([0,0,-long_tube_z + long_tube_cylinder_h])
+        cylinder(r=long_tube_cylinder_r, h=long_tube_z+1, center=true);
+    }
 }
 
 
@@ -70,18 +84,26 @@ module small_tube() {
         cylinder(r=small_tube_r, h=small_tube_h, center=true);  // attachment
     }
 
-    translate([-15,0,main_z+1.5])
-    cylinder(r=2.65, h=6, center=true);
+        translate([-15,0,main_z-0.5])
+    difference(){
+        cylinder(r=2.65, h=2, center=true);
+        cylinder(r=1, h=3, center=true);
+    }
 
 
 }
+
+
 module small_tube_holes() {
     translate([-small_tube_h+1.5,0,small_tube_r]) rotate([0, 90, 0])
     cylinder(r=5/2, h=small_tube_h+2, center=true); // Inner hole
 
-    translate([-12,0,0])
-    cube(size=[9, 2.4, 16.1], center=true); // Upper and lower holes
+    translate([-12.5,0,0])
+    cube(size=[8, 2.4, 16.1], center=true); // Upper and lower holes
 }
+
+
+// ### MAIN ###
 
 difference(){
     long_tube();
@@ -89,9 +111,8 @@ difference(){
 }
 difference(){
     union(){
-    motor_hole();
-    small_tube();
-
+        motor_hole();
+        small_tube();
     }
     small_tube_holes();
 }
