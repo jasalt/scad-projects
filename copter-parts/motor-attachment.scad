@@ -11,7 +11,7 @@ Jarkko Saltiola
 
 // Pieni tappi pois, läpireikä vaan tilalle
 
-$fn = 300;
+$fn = 30;
 
 main_z = 8;
 
@@ -103,6 +103,19 @@ module small_tube_holes() {
 }
 
 
+module side_tube(){
+    translate([-18.7, -6, main_z / 2]){
+        rotate([90, 0, 0])
+        cylinder(r1=2.3, r2=1.75, h=5.6, center=true);
+
+        //side support
+        translate([2, 0.8, 0]) rotate([0, 0, 45])
+        cube(size=[6, 3, 1], center=true);
+
+    }
+}
+
+
 // ### MAIN ###
 
 difference(){
@@ -116,3 +129,5 @@ difference(){
     }
     small_tube_holes();
 }
+
+side_tube();
