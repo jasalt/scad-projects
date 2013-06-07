@@ -2,18 +2,19 @@
 Jarkko Saltiola
 2013
 
-*/
+ */
 
+$fn = 70;
 
-$fn = 30;
+tolerance = 0.5;
 
 main_z = 8;
 
-motor_radius = 13/2;     // <--- Adjust motor size
-wall_thickness = 2;
+motor_radius = 15.3/2+ tolerance;     // <--- Adjust motor size
+wall_thickness = 2.5;
 
 module motor_hole(){
-    bigger_hole_radius = 3;
+    bigger_hole_radius = 3+ tolerance;
 
     translate([0,0,main_z/2])  // Move to z=0
     difference(){
@@ -27,7 +28,7 @@ module motor_hole(){
         cylinder(r=bigger_hole_radius, h=10, center=true); // Bigger hole
         // Smaller holes
         translate([0,4.3,0])
-        cube(size=[3, 1, 10], center=true);
+  //      cube(size=[3, 1, 10], center=true);
         translate([0,-4.3,0])
         cube(size=[3, 1, 10], center=true);
     }
@@ -39,17 +40,17 @@ long_tube_r = 4;  // TODO check
 long_tube_x = 15;
 
 long_tube_hole_r = 2.5;    // Hole inner radius
-long_tube_cylinder_r = 3;  // Cylinder holes radius
+long_tube_cylinder_r = 3+tolerance/2;  // Cylinder holes radius
 long_tube_cylinder_h = 4;  //                height
 
 
 module long_tube() {
     translate([long_tube_x,0,long_tube_z / 2])
-    cylinder(r=long_tube_r, h=long_tube_z, center=true);  // The tube
+    cylinder(r=long_tube_r+tolerance*2, h=long_tube_z, center=true);  // The tube
     // Connector to motor-hole
     // Tube
     translate([11,0,main_z/2])
-    cube(size=[10, long_tube_r*2, main_z], center=true);
+    cube(size=[10, long_tube_r*2-0.3, main_z], center=true);
     // difference(){
 
     // }
@@ -124,4 +125,4 @@ difference(){
     small_tube_holes();
 }
 
-side_tube();
+//side_tube();
