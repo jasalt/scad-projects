@@ -11,6 +11,7 @@ module motor(){
     reinforcement_radius = (29.7 / 2);
     shaft_base_radius = 10 / 2;
     shaft_base_length = 3;
+
     shaft_radius = 1;
     shaft_length = 2;
     wheel_radius = 42 / 2;
@@ -40,9 +41,9 @@ module brains(){
 
 // Turnigy 7.4V 5Ah 2C
 module battery(){
-    batt_x = ;
-    batt_y = ;
-    batt_z = ;
+    batt_x = 135.0; // Length
+    batt_y = 44.6;  // Width
+    batt_z = 23.5;  // Height
 //TODO
 }
 
